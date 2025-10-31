@@ -27,8 +27,13 @@ const Products = () => {
       <h1 style={{fontSize: '36px', color: '#2563eb', textAlign: 'center', marginBottom: '40px'}}>
         Our Products
       </h1>
-      <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px'}}>
-        {products.map(product => (
+      {products.length === 0 ? (
+        <div style={{textAlign: 'center', padding: '40px'}}>
+          <p>No products available. Make sure the backend is running.</p>
+        </div>
+      ) : (
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px'}}>
+          {products.map(product => (
           <div key={product.id} style={{
             backgroundColor: 'white',
             border: '1px solid #e5e7eb',
@@ -37,8 +42,12 @@ const Products = () => {
             textAlign: 'center',
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
           }}>
-            {product.image_url && (
+            {product.image_url ? (
               <img src={product.image_url} alt={product.name} style={{width: '100%', height: '200px', objectFit: 'cover', borderRadius: '4px', marginBottom: '15px'}} />
+            ) : (
+              <div style={{width: '100%', height: '200px', backgroundColor: '#f3f4f6', borderRadius: '4px', marginBottom: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '48px'}}>
+                💎
+              </div>
             )}
             <h3 style={{fontSize: '20px', fontWeight: 'bold', marginBottom: '10px'}}>{product.name}</h3>
             <p style={{color: '#6b7280', marginBottom: '10px'}}>{product.description}</p>
@@ -55,8 +64,9 @@ const Products = () => {
               Add to Cart
             </button>
           </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
